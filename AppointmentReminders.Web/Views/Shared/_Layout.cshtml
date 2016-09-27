@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Reminders</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", false)
+</head>
+<body>
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Appointment Reminders</a>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav">
+                    
+                    @if (Request.IsAuthenticated)
+                    {
+                      //  <strong>@Html.Encode(User.Identity.Name)</strong>
+                        <li>@Html.ActionLink("Create", "Create", "Appointments")</li>
+                        <li>@Html.ActionLink("List", "Index", "Appointments")</li>
+                        <li>@Html.ActionLink("  |    Logout", "Logout", "Appointments")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Appointments")</li>
+                        //@Html.ActionLink("Register", "Register", "User")
+                        //@Html.ActionLink("Sign In", "Login", "User")
+                    }
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    @*<div style="width: auto; background-color: #728ea7;">
+        @if (Request.IsAuthenticated)
+        {
+            <strong>@Html.Encode(User.Identity.Name)</strong>
+            @Html.ActionLink("Sign Out", "Logout", "User")
+        }
+        else
+        {
+            @Html.ActionLink("Register", "Register", "User")
+            <span> | </span>
+            @Html.ActionLink("Sign In", "Login", "User")
+        }
+    </div>*@
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                @RenderBody()
+            </div>
+            <div class="col-lg-3">
+            </div><!--/span-->
+        </div><!--/row-->
+
+        <footer>
+            <p>&copy; VEME 2016</p>
+        </footer>
+
+    </div> <!-- /container -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

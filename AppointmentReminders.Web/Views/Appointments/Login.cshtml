@@ -1,0 +1,50 @@
+﻿@model AppointmentReminders.Web.Models.Login
+
+@{
+    ViewBag.Title = "Login";
+}
+
+
+
+
+
+<div class="page-header">
+    <h1>Login</h1>
+</div>
+@using (Html.BeginForm("Login", "Appointments", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+
+    <div id="name" class="form-group">
+        @Html.LabelFor(x => x.user, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-10">
+            @Html.TextBoxFor(x => x.user, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.user)
+        </div>
+    </div>
+    <div id="phone" class="form-group">
+        @Html.LabelFor(x => x.password, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-10">
+           @Html.EditorFor(x => x.password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+           @*@Html.PasswordFor(x => x.password, new { @class = "form-control", placeholder = "Password" })
+           @Html.EditorFor(x => x.password, new { @class = "form-control",placeholder="Password" })*@
+            @Html.ValidationMessageFor(x => x.password)
+        </div>
+    </div>
+    
+
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <input type="submit" value="Login" class="btn btn-primary" />
+            @*@Html.ActionLink("Login", "Login", new { Controller = "Appointments" }, new { @class = "btn btn-default" })*@
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/form")
+    @Scripts.Render("~/bundles/datetime")
+}
+@section Styles {
+    @Styles.Render("~/Content/datetime")
+}
+

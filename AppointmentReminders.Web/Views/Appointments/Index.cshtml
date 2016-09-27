@@ -1,0 +1,78 @@
+﻿@using AppointmentReminders.Web.Extensions
+
+
+@model PagedList.IPagedList<AppointmentReminders.Web.Models.Appointment>
+@using PagedList.Mvc;
+
+
+
+<div class="page-header">
+    <h1>Appointments</h1>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].CreatedAt)
+        </th>
+        <th colspan="2">
+            Actions
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Id.ToString(), "Details", new {Controller = "Appointments", id = item.Id})
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @{                TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById(item.Timezone);
+                            DateTime localTimeNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tz);
+            }
+
+
+            @if (localTimeNow<item.Time)
+            {
+                @Html.ActionLink("Edit", "Edit", new { Controller = "Appointments", id = item.Id }, new { @class = "btn btn-default btn-xs" });
+            }
+
+               @*@Html.ActionLink("Edit", "Edit", new { Controller = "Appointments", id = item.Id }, new { @class = "btn btn-default btn-xs" })*@
+        </td>
+        <td>
+            @Html.DeleteLink("Delete", "Appointments", 
+            new { id = item.Id },
+            new { @class = "btn btn-danger btn-xs", onclick = "return confirm('Are you sure?');" })
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+Page @(Model.PageCount<Model.PageNumber?0:Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page=>Url.Action("Index", new{page}))
+@Html.ActionLink("New", "Create", new { Controller = "Appointments" }, new { @class = "btn btn-primary" })

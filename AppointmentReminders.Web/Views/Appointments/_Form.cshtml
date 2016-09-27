@@ -1,0 +1,82 @@
+﻿@using AppointmentReminders.Web.Extensions
+@model AppointmentReminders.Web.Models.Appointment
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/form")
+@Scripts.Render("~/bundles/mesa")
+    @Scripts.Render("~/bundles/datetime")
+@Scripts.Render("~/bundles/ropho")
+}
+@section Styles {
+    @Styles.Render("~/Content/datetime")
+}
+
+
+    <div class="form-group">
+        <label class="control-label col-lg-2">Country  and Phone</label>
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-4">
+                    @Html.DropDownListFor(x => x.CountryCode, (IEnumerable<SelectListItem>)ViewBag.CountryCodes, "--Select a Country--", new { @class = "form-control" })
+                          @*@Html.ValidationMessageFor(x => x.CountryCode)*@
+                </div>
+                <div class="col-lg-4">
+                    @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.PhoneNumber)
+                </div>
+                <div class="col-lg-4">
+                    <input type="button" id="searchbtn" value="Search" class="btn btn-primary" />
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="name" class="form-group">
+        @Html.LabelFor(x => x.Name, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-10">
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+    </div>
+
+    <div id="name" class="form-group">
+        @Html.LabelFor(x => x.Physician, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-10">
+            @Html.DropDownListFor(x => x.PhysicianId, (IEnumerable<SelectListItem>)ViewBag.Physicians, "--Select a physician--", new { @class = "form-control" })
+            @*@Html.DropDownListFor(x => x.PhysicianId, (IEnumerable<SelectListItem>)ViewBag.Physicians, "--Select a physician--", new { @class = "form-control" })*@
+            @*@Html.ValidationMessageFor(x => x.PhysicianId)*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-lg-2">Time and Date</label>
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class='input-group date' id="datetimepicker">
+                        @Html.TextBox("Time", Model.Time.ToCustomDateString(), new { @class = "form-control" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                        @Html.ValidationMessageFor(x => x.Time)
+                    </div>
+                </div>
+                <div class="col-lg-6 pull-right">
+                    @Html.DropDownListFor(x => x.Timezone, (IEnumerable<SelectListItem>)ViewBag.Timezones, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+@Html.HiddenFor(m => m.OperationCenterId)
+@Html.HiddenFor(m => m.CustomerId)
+@Html.HiddenFor(m => m.Status)
+@Html.HiddenFor(m => m.NumOfNotifications)
+
+
+

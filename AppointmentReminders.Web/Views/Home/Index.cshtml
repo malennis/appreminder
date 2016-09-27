@@ -1,0 +1,10 @@
+﻿@using System.Web.UI.WebControls
+@model dynamic
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h1>Appointment Reminders </h1>
+<p>Appointment Reminder sends out customizable phone reminders, text message reminders (also called SMS reminders),  so that they come in on time and you get paid.
+<p>@Html.ActionLink("Login to create a new Appointment", "Login", new { Controller = "Appointments" }, new { @class = "btn btn-primary btn-xs"} ) to see how it works!</p>
