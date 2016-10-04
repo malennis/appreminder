@@ -44,7 +44,7 @@ namespace AppointmentReminders.Web.Domain
                 app.NumOfNotifications = 2;
             }
 
-            _repository.Update(app);
+            _repository.UpdateStatusOnly(app);
             
             
         }

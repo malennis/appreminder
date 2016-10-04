@@ -7,6 +7,7 @@ namespace AppointmentReminders.Web.Models.Repository
         void Create(Appointment appointment);
         void Update(Appointment appointment);
         void Delete(int id);
+        void UpdateStatusOnly(Appointment appointment);
         Appointment FindById(int id);
         IEnumerable<Appointment> FindAll();
 

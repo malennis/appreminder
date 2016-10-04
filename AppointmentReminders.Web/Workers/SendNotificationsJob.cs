@@ -38,9 +38,9 @@ namespace AppointmentReminders.Web.Workers
 
                 //    Status.today.ToString());
                 
-               twilioRestClient.SendSmsMessage(
-               appointment.CountryCode+ appointment.PhoneNumber,
-               string.Format(MessageTemplate, appointment.Name, appointment.Physician.PhysicianName, appointment.Time.ToString("t"), stat));
+               //twilioRestClient.SendSmsMessage(
+               //appointment.CountryCode+ appointment.PhoneNumber,
+               //string.Format(MessageTemplate, appointment.Name, appointment.Physician.PhysicianName, appointment.Time.ToString("t"), stat));
 
               
                ChangeStatus(appointment);
@@ -59,11 +59,11 @@ namespace AppointmentReminders.Web.Workers
         }
 
 
-        private static bool ChangeStatus(Appointment app)
+        private static void ChangeStatus(Appointment app)
         {
              new AppointmentsFinder(new AppointmentRepository(), new TimeConverter()).ChangeAppStatus(app, DateTime.Now);
 
-             return true;
+            // return true;
         }
 
     }

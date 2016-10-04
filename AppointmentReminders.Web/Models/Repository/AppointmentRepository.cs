@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 namespace AppointmentReminders.Web.Models.Repository
@@ -34,9 +35,12 @@ namespace AppointmentReminders.Web.Models.Repository
 
         public void Update(Appointment appointment)
         {
-            _context.Appointments.Attach(appointment);
-            _context.Entry(appointment).State = EntityState.Unchanged;
-            _context.Entry(appointment).Property(model => model.CreatedAt).IsModified = false;
+           // _context.Appointments.(appointment);
+            //_context.Entry(appointment).State = EntityState.Detached;
+            _context.Entry(appointment).State = EntityState.Modified;
+           // _context.Appointments.
+            
+           //_context.Entry(appointment).Property(model => model.CreatedAt).IsModified = false;
          
             _context.SaveChanges();
         }
@@ -56,6 +60,23 @@ namespace AppointmentReminders.Web.Models.Repository
         public IEnumerable<Appointment> FindAll()
         {
             return _context.Appointments.Where(x => x.Status == "Pending").ToList();
+        }
+
+        public void UpdateStatusOnly(Appointment appointment)
+        {
+            //this._context.Appointments.Attach(appointment);
+            //DbEntityEntry<Appointment> entry = _context.Entry(appointment);
+            
+            //entry.Property(e => e.Status).IsModified = true;
+            //entry.Property(e => e.NumOfNotifications).IsModified = true;
+
+
+            Appointment appointment2 = _context.Appointments.FirstOrDefault(x => x.Id == appointment.Id);
+            DbEntityEntry<Appointment> entry = _context.Entry(appointment2);
+            entry.Property(e => e.Status).IsModified = true;
+            entry.Property(e => e.NumOfNotifications).IsModified = true;
+
+            _context.SaveChanges();
         }
 
 
